@@ -1,2 +1,2 @@
 # Map, GPS, and Location Services on Android Platform
-### Eileen Feng
+### by Eileen Feng, Dec 2018
