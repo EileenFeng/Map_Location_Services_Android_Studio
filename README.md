@@ -1,1 +1,2 @@
-# Map-GPS-and-Locatioon-on-Android-Exam2-
+# Map, GPS, and Location Services on Android Platform
+## Eileen Feng
