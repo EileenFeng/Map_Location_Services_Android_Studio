@@ -88,3 +88,10 @@ Your `MapsActivity` class also needs to implement the [`OnMapReadyCallback`](htt
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(zero));
     }
 ```
+
+When we launch the app, we will see a map with satellite's view and a marker at longtitude 0 and latitude 0 on earth, as shown below: 
+
+<p align="center">
+ <img src="/image/onMapReady.png" width="250" height="450" >
+</p>
+
