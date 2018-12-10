@@ -3,7 +3,7 @@
 
 ###   `Overview`
 
-Map and location services are very important for mobile apps these days. Applications such as Doordash (delivery services), Waze (navigation and direction services), and social apps that allow user-created content with location information, all involves maps and location services. The sections below introduce how to build these features into your app with [android.location](https://developer.android.com/reference/android/location/package-summary) framework APIs, [Google Play services location APIs](https://developer.android.com/training/location/), and [Google Maps Android API](https://developers.google.com/maps/documentation/android-sdk/intro). 
+Map and location services are very important for mobile apps these days. Applications such as Doordash (delivery services), Waze (navigation and direction services), and social apps that allow user-created content with location information, all involves maps and location services. The sections below introduce how to build these features into your app with [android.location](https://developer.android.com/reference/android/location/package-summary) framework APIs, [Google Play services location APIs](https://developer.android.com/training/location/), and the [Google Maps Android API](https://developers.google.com/maps/documentation/android-sdk/intro). 
 <br> <br/>
 ###   `Maps - Google Maps Android API`
 
@@ -77,4 +77,14 @@ Then in `MapsActivity.java`, we find this fragment and add it through fragment t
 
 ```
 
-Your `MapsActivity` class also needs to implement the [`OnMapReadyCallback`](https://developers.google.com/android/reference/com/google/android/gms/maps/OnMapReadyCallback) interface and overrides the `abstract void	onMapReady(GoogleMap googleMap)` method. This method will be called once your map is ready. 
+Your `MapsActivity` class also needs to implement the [`OnMapReadyCallback`](https://developers.google.com/android/reference/com/google/android/gms/maps/OnMapReadyCallback) interface and overrides the `abstract void	onMapReady(GoogleMap googleMap)` method. This method will be called once your map is ready. If you want to customize your `GoogleMap` instance when the app is launched, you can do this in the `onMapReady(GoogleMap googleMap)` function. Below shows the example code for setting up markers and map themes in `onMapReady(GoogleMap googleMap)`. 
+
+```java
+@Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        LatLng zero = new LatLng(0, 0);
+        googleMap.addMarker(new MarkerOptions().position(zero).title("Zero"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(zero));
+    }
+```
