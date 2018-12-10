@@ -42,7 +42,7 @@ Now you should be all set up for building your map-based project.
 **MapFragment** 
 An instance of map object(`GoogleMap`) cannot be obtained directly, but must be acquired by calling `getMapAsync(OnMapReadyCallback)` on either `MapFragment` or [`MapView`](https://developers.google.com/android/reference/com/google/android/gms/maps/MapView) instance. This blog will elaborate on the `MapFragment` class as it is the simplest and most common practice for adding maps into applications. 
 
-We can obtain a new instance of `MapFrament` by calling `MapFragment.newInstance()` and add this fragment into our activity with [`FragmentTransaction`](https://developer.android.com/reference/android/app/FragmentTransaction#add(int,%0Aandroid.app.Fragment). However, there is a simpler way for doing this. As a fragment, `MapFrament` element can be easily added through xml files. Navigate to your `activity_maps.xml` under `layout`, and you will notice that Android Studio has automatically included a `MapFragment` for you: 
+We can obtain a new instance of `MapFrament` by calling `MapFragment.newInstance()` and add this fragment into our activity with [`FragmentTransaction`](https://developer.android.com/reference/android/app/FragmentTransaction). However, there is a simpler way for doing this. As a fragment, `MapFrament` element can be easily added through xml files. Navigate to your `activity_maps.xml` under `layout`, and you will notice that Android Studio has automatically included a `MapFragment` for you: 
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
