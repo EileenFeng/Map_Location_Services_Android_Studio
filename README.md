@@ -25,3 +25,5 @@ An API key is required for accessing the Google Maps servers. After creating a n
 <p align="center">
  <img src="/image/API_key.png" width="700" height="350" >
 </p>
+
+Developers are also required to set up the **Google Play services SDK** for their projects in order to use the Maps SDK. To do this, first make sure your top level `build.gradle` contains a reference to `google()` or the corresponding maven dependency: `maven { url "https://maven.google.com" }`. Specifically, you want to check whether your `buildscript` contains the line of code `google()` under `repositories`. Then open the `build.gradle` file for your app, and add dependencies for using the `play-services`. [This website](https://developers.google.com/android/guides/setup) provides a lists of APIs and the corresponding `build.gradle` description. For using the Maps SDK, add a new build rule `implementation com.google.android.gms:play-services-maps:16.0.0` to your `build.gradle`, and sync your project. 
