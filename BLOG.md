@@ -7,7 +7,7 @@ Map and location services are very important for mobile apps these days. Applica
 <br> <br/>
 ###   `Maps - Google Maps Android API`
 
-The Google Maps Android API provides a nice abstraction for developers who want to add maps into their applications. It is designed for people who have experience with Android development as well as object-oriented programming. The Maps SDK is based on Google Maps data, and it automatically handles lots of background activities for developers, including connecting to Google Maps servers, downloading datas, and responsing to map gestures. This API also allows users to customize their own maps, such as set up markers or indoor maps. The following content provides an introduction on how to add map activities into your apps, basic customization of your maps, and testing your map-based applications on android emulators. 
+The Google Maps Android API provides a nice abstraction for developers who want to add maps into their applications. It is designed for people who have experience with Android development as well as object-oriented programming. The Maps SDK is based on Google Maps data, and it automatically handles lots of background activities for developers, including connecting to Google Maps servers, downloading datas, and responsing to map gestures. This API also allows users to customize their own maps. The following content provides an introduction on how to add map activities into your apps, basic customization of your maps, and testing your map-based applications on android emulators. 
 
 - ####   `Set up your project`
 
@@ -56,14 +56,14 @@ We can obtain a new instance of `MapFrament` by calling `MapFragment.newInstance
     tools:context=".MapsActivity" />
 ```
 
-Then in `MapsActivity.java`, we find this fragment and add it through fragment transactions: 
+Then in `MapsActivity.java`, we will find this fragment and set callback:  
 
 ```java
 @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        /*  // adding MapFragment through code
+        /*  // adding MapFragment through code instead of through xml 
             MapFragment mapFragment = MapFragment.newInstance();
             FragmentTransaction fragmentTransaction =
                     getFragmentManager().beginTransaction();
@@ -84,6 +84,7 @@ Your `MapsActivity` class also needs to implement the [`OnMapReadyCallback`](htt
     public void onMapReady(GoogleMap googleMap) {
         googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         LatLng zero = new LatLng(0, 0);
+        googleMap.getUiSettings().setAllGesturesEnabled(true);
         googleMap.addMarker(new MarkerOptions().position(zero).title("Zero"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(zero));
     }
