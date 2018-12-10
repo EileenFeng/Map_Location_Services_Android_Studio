@@ -14,4 +14,4 @@ The Google Maps Android API provides a nice abstraction for developers who want 
 
 3. An API key is required for accessing the Google Maps servers. After creating a new project with Google Maps Activity, Android Studio will open up two files automatically: `google_maps_api.xml` and `MapsActivity.java` (or whatever names you gave for your map activity). Navigate to `google_maps_api.xml`, copy the link provided in this file, and paste it in your browser. Follow the instructions in the corresponding website and obtain an API key for your app. Copy your API key into the `google_maps_key` String object in the `google_maps_api.xml` file. Make sure to keep your API key confidential. The screenshots below elaborates this process. 
 
-![google_maps_api.xml](/image/google_maps_api.png =10x)!
+![google_maps_api.xml](/image/google_maps_api.png =100x20)!
