@@ -40,6 +40,7 @@ Now you should be all set up for building your map-based project.
  [`MapFragment`](https://developers.google.com/android/reference/com/google/android/gms/maps/MapFragment) and [`GoogleMap`](https://developers.google.com/android/reference/com/google/android/gms/maps/GoogleMap) are two of the most important classes for interacting with maps on android apps. We will look into the basic methods and operations for both classes below. 
  
 **MapFragment** 
+
 An instance of map object(`GoogleMap`) cannot be obtained directly, but must be acquired by calling `getMapAsync(OnMapReadyCallback)` on either [`MapFragment`](https://developers.google.com/android/reference/com/google/android/gms/maps/MapFragment) or [`MapView`](https://developers.google.com/android/reference/com/google/android/gms/maps/MapView) instances. In addition, the `MapsActivity` class must implements the [`OnMapReadyCallback`](https://developers.google.com/android/reference/com/google/android/gms/maps/OnMapReadyCallback) interface. This blog will elaborate on the `MapFragment` class as it is the simplest and most common practice for adding maps into applications. 
 
 We can obtain a new instance of `MapFrament` by calling `MapFragment.newInstance()` and add this fragment into our activity with [`FragmentTransaction`](https://developer.android.com/reference/android/app/FragmentTransaction). However, there is a simpler way for doing this. As a fragment, `MapFrament` element can be easily added through xml files. Navigate to your `activity_maps.xml` under `layout`, and you will notice that Android Studio has automatically included a `MapFragment` for you: 
@@ -76,8 +77,10 @@ Then in `MapsActivity.java`, we will find this fragment and set callback:
     }
 
 ```
+ 
+**GoogleMap** 
 
-Your `MapsActivity` class also needs to implement the [`OnMapReadyCallback`](https://developers.google.com/android/reference/com/google/android/gms/maps/OnMapReadyCallback) interface and overrides the `abstract void	onMapReady(GoogleMap googleMap)` method. This method will be called once your map is ready. If you want to customize your `GoogleMap` instance when the app is launched, you can do this in the `onMapReady(GoogleMap googleMap)` function. Below shows the example code for setting up markers and map themes in `onMapReady(GoogleMap googleMap)`. 
+As mentioned in the previous section, the `MapsActivity` class needs to implement the [`OnMapReadyCallback`](https://developers.google.com/android/reference/com/google/android/gms/maps/OnMapReadyCallback) interface and overrides the `abstract void	onMapReady(GoogleMap googleMap)` method. This method provides a way of tackling your `GoogleMap` object, and will be called once your map is ready. If you want to customize your `GoogleMap` instance when the app is launched, you can specify your customizations in this method. For instance, we can set up markers and map themes as below: 
 
 ```java
 @Override
