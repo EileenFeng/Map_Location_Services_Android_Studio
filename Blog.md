@@ -13,7 +13,7 @@ Map and location services are very important for mobile apps these days. Applica
 The Google Maps Android API provides a nice abstraction for developers who want to add maps into their applications. It is designed for people who have experience with Android development as well as object-oriented programming. The Maps SDK is based on Google Maps data, and it automatically handles lots of background activities for developers, including connecting to Google Maps servers, downloading datas, and responsing to map gestures. This API also allows users to customize their own maps, such as set up markers or indoor maps. The following content provides an introduction on how to add map activities into your apps, basic customization of your maps, and testing your map-based applications on android emulators. 
 
 
-####   `How to Add Map into Your Apps`
+- ####   `How to Add Map into Your Apps`
 
 If you do not have Android Studio on your laptops yet, you can [download](https://developer.android.com/studio/) from the Android developers' website. 
 
