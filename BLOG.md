@@ -7,7 +7,7 @@ Map and location services are very important for mobile apps these days. Applica
 <br> <br/>
 ###   `Maps - Google Maps Android API`
 
-The Google Maps Android API provides a nice abstraction for developers who want to add maps into their applications. It is designed for people who have experience with Android development as well as object-oriented programming. The Maps SDK is based on Google Maps data, and it automatically handles lots of background activities for developers, including connecting to Google Maps servers, downloading datas, and responsing to map gestures. This API also allows users to customize their own maps. The following content provides an introduction on how to add map activities into your apps, basic customization of your maps, and testing your map-based applications on android emulators. 
+The Google Maps Android API provides a nice abstraction for developers who want to add maps into their applications. It is designed for people who have experience with Android development as well as object-oriented programming. The Maps SDK is based on Google Maps data, and it automatically handles lots of background activities for developers, including connecting to Google Maps servers, downloading datas, and responsing to map gestures. This API also allows users to customize their own maps. The following content provides an introduction on how to add map activities into your app, basic customization of your map, and testing your map-based application on android emulator. 
 
 - ####   `Set up your project`
 
@@ -87,9 +87,9 @@ As mentioned in the previous section, the `MapsActivity` class needs to implemen
     public void onMapReady(GoogleMap googleMap) {
         googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         LatLng zero = new LatLng(0, 0);
-        googleMap.getUiSettings().setAllGesturesEnabled(true);
         googleMap.addMarker(new MarkerOptions().position(zero).title("Zero"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(zero));
+        googleMap.getUiSettings().setAllGesturesEnabled(true);
     }
 ```
 
@@ -99,3 +99,9 @@ When we launch the app, we will see a map with satellite's view and a marker at 
  <img src="/image/onMapReady.png" width="250" height="450" >
 </p>
 
+The code example above mentioned several methods and objects that are frequently used in setting up map attributes, and we will look into them in more details. 
+
+- `MapType`
+- `Marker`
+- `CameraUpdateFactory`
+- `Uisettings`
