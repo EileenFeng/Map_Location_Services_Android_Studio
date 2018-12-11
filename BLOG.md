@@ -102,6 +102,9 @@ When we launch the app, we will see a map with satellite's view and a marker at 
 The code example above mentioned several methods and objects that are frequently used in setting up map attributes, and we will look into them in more details. 
 
 - `MapType`
+
 - `Marker`
+
 - `CameraUpdateFactory`
-- `Uisettings`
+
+- `UiSettings`
