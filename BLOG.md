@@ -102,9 +102,12 @@ When we launch the app, we will see a map with satellite's view and a marker at 
 The code example above mentioned several methods and objects that are frequently used in setting up map attributes, and we will look into them in more details. 
 
 - `MapType`
-The Maps SDK provides different map types, standing for different designs and representations of maps. In the code example provided above we are using `MAP_TYPE_SATELLITE`, which stands for . 
+
+The Maps SDK provides various map types, each of them stands for different design and representation of map. In the code example provided above we are using `MAP_TYPE_SATELLITE`. You can always set your map type by calling `setMapType(<map_type>)` on your `GoogleMap` instance. 
 
 - `Marker`
+
+Markers are designed for identifying locations on maps. The [`Marker`](https://developers.google.com/maps/documentation/android-sdk/marker) class receive `click` events by default, therefore can be used for user interactions in maps, for instance providing information when user click on a marker for a particular location. Markers can 
 
 - `CameraUpdateFactory`
 
