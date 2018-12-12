@@ -6,9 +6,9 @@
 Map and location services are very important for mobile apps these days. Applications such as Doordash (delivery services), Waze (navigation and direction services), and social apps that allow user-created content with location information, all involves maps and location services. The sections below introduce how to build these features into your app with [android.location](https://developer.android.com/reference/android/location/package-summary) framework APIs, [Google Play services location APIs](https://developer.android.com/training/location/), and the [Google Maps Android API](https://developers.google.com/maps/documentation/android-sdk/intro). We will be using Android Studio IDE. If you do not have Android Studio on your laptops yet, you can [download](https://developer.android.com/studio/) from the Android developers' website. 
 <br> <br/>
 
-### `Set Up Emulator for Testing Apps with Maps`
+### `Set Up Emulators`
 
-It is very important that developers can test their applications on emulators when they do not have an android devices on hand. Before we delve into the code, we will set up our emulators for running and testing our programs. 
+It is very important that developers can test their applications on emulators when they do not have an android devices on hand. Before we delve into the code, we will set up our emulators for running and testing our map-based applications. 
 
 First, check your `Android Emulator` tools is up-to-date. Click on `SDK Manager` under `Tools` in your menu, select the `SDK Tools` tab, check `Android Emulator`, and apply your changes to update packages. 
 
