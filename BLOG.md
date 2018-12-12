@@ -13,7 +13,7 @@ It is very important that developers can test their applications on emulators wh
 First, check your `Android Emulator` tools is up-to-date. Click on `SDK Manager` under `Tools` in your menu, select the `SDK Tools` tab, check `Android Emulator`, and apply your changes to update packages. 
 
 <p align="center">
- <img src="/image/emulator_update.png" width="600" height="130" >
+ <img src="/image/emulator_update.png" width="600" height="400" >
 </p>
 
 Then you want to [create a new emulator](https://developer.android.com/studio/run/managing-avds) for running your apps. Make sure to choose an Android version with Google APIs supports. The information of the emulator I am using for testing my map-based app are listed below: 
