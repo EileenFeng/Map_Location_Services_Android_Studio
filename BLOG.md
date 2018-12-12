@@ -120,7 +120,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Marker mShrine = googleMap.addMarker(new MarkerOptions()
                                                 .position(tokyo)
                                                 .snippet("Hello Tykyo")
-                                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+                                                .icon(BitmapDescriptorFactory
+                                                             .defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                                                 .title("Tokyo"));
 
         mShrine.setAlpha(0.7f);
@@ -138,5 +139,67 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 ```
 
 - `CameraUpdateFactory`
+
+To get different views on the map, the Google Map API offered the [`CameraUpdateFactory`](https://developers.google.com/maps/documentation/android-sdk/views#changing_zoom_level_and_setting_minimummaximum_zoom) class. The android developer's documentation has linked above has covered considerable details on how camera positions are related to the views created on map. Here, we will look into an example of how to combine `CameraUpdateFactory` with `Marker` to customize our map, with some simple animations. Below is the example code for customizing a marker at Tokyo. When the application launches, the map will be directed to where the marker `tokyo` is, and gradually zooms into the area near this marker. 
+
+```java
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+        GoogleMap.OnMarkerClickListener {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_maps);
+        /*  // adding MapFragment through code
+            MapFragment mapFragment = MapFragment.newInstance();
+            FragmentTransaction fragmentTransaction =
+                    getFragmentManager().beginTransaction();
+            fragmentTransaction.add(android.R.id.content, mapFragment);
+            fragmentTransaction.commit();
+         */
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        LatLng tokyo = new LatLng(35.6895, 139.6917);
+        Marker mShrine = googleMap.addMarker(new MarkerOptions()
+                                                .position(tokyo)
+                                                .snippet("Hello Tykyo")
+                                                .icon(BitmapDescriptorFactory
+                                                        .defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+                                                .title("Tokyo"));
+
+        mShrine.setAlpha(0.7f);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tokyo, 1.5f));
+        googleMap.animateCamera(CameraUpdateFactory.zoomIn());
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(9.5f), 2000, null);
+        UiSettings ui = googleMap.getUiSettings();
+        ui.setAllGesturesEnabled(true);
+        ui.setCompassEnabled(true);
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        Toast.makeText(this,
+                "Tokyo, Japan’s busy capital, mixes the ultramodern and the traditional, from neon-lit skyscrapers to historic temples.",
+                Toast.LENGTH_LONG*10).show();
+        return true;
+    }
+}
+
+```
+
+Below is the screenshot after the camera has zoomed in to the Tokyo area. 
+
+<p align="center">
+ <img src="/image/tokyo.png" width="250" height="450" >
+</p>
+
+The `moveCamera(CameraUpdate <location/marker>)` function will moves the camera to the positions specified by the marker passed in, and the `animateCamera(CameraUpdate <new_position>)` function will animate the process of moving the camera from the current position to the `new_position` that got passed in. There are many other ways of customizing your own views by manipulating with `CameraUpdate` differently, and this [`tutorial`](https://developers.google.com/maps/documentation/android-sdk/views) provided more details in how to create different views by manipulating your `CameraUpdate` differently. 
 
 - `UiSettings`
