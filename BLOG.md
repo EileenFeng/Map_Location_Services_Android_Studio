@@ -107,7 +107,35 @@ The Maps SDK provides various map types, each of them stands for different desig
 
 - `Marker`
 
-Markers are designed for identifying locations on maps. The [`Marker`](https://developers.google.com/maps/documentation/android-sdk/marker) class receive `click` events by default, therefore can be used for user interactions in maps, for instance providing information when user click on a marker for a particular location. Markers can 
+Markers are designed for identifying locations on maps. The [`Marker`](https://developers.google.com/maps/documentation/android-sdk/marker) class receive `click` events by default, therefore can be used for user interactions in maps, for instance providing information when user click on a marker for a particular location. Developers can customize markers in various ways, for instance the color, opacity, and position of markers, or even the click event. To customize the 'on-click' event for markers, your `MapsActivity` has to implements the `OnMarkerClickListener` interface. Below is an example of customized marker, which is positioned at Tokyo. When user click on the marker, a short, text introduction of Tokyo will be presented on the screen.
+
+```java
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+        GoogleMap.OnMarkerClickListener {
+        
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        LatLng tokyo = new LatLng(35.6895, 139.6917);
+        Marker mShrine = googleMap.addMarker(new MarkerOptions()
+                                                .position(tokyo)
+                                                .snippet("Hello Tykyo")
+                                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+                                                .title("Tokyo"));
+
+        mShrine.setAlpha(0.7f);
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        Toast.makeText(this,
+                "Tokyo, Japan’s busy capital, mixes the ultramodern and the traditional, from neon-lit skyscrapers to historic temples.",
+                Toast.LENGTH_LONG*10).show();
+        return true;
+    }
+}
+
+```
 
 - `CameraUpdateFactory`
 
