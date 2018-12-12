@@ -105,7 +105,6 @@ As mentioned in the previous section, the `MapsActivity` class needs to implemen
         LatLng zero = new LatLng(0, 0);
         googleMap.addMarker(new MarkerOptions().position(zero).title("Zero"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(zero));
-        googleMap.getUiSettings().setAllGesturesEnabled(true);
     }
 ```
 
@@ -218,4 +217,7 @@ Below is the screenshot after the camera has zoomed in to the Tokyo area.
 
 The `moveCamera(CameraUpdate <location/marker>)` function will moves the camera to the positions specified by the marker passed in, and the `animateCamera(CameraUpdate <new_position>)` function will animate the process of moving the camera from the current position to the `new_position` that got passed in. There are many other ways of customizing your own views by manipulating with `CameraUpdate` differently, and this [`documentation`](https://developers.google.com/maps/documentation/android-sdk/views) provided more details in how to create different views by manipulating your `CameraUpdate` differently. 
 
-- `UiSettings`
+
+- `Google Map APIs Developers' Doc`
+
+The `Google Map APIs` allow developers to build their in-app maps in many different ways depending on specific context, for instance what information developers' want users to obtain through maps, or how should users interact with the in-app maps. The sections above only introduced the basic yet most commonly used classes and strategies in building maps into applications. For more information, please refer to the [developers' documentation for Google Map APIs](https://developers.google.com/maps/documentation/android-sdk/intro). 
