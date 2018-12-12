@@ -223,4 +223,6 @@ The `moveCamera(CameraUpdate <location/marker>)` function will moves the camera 
 The `Google Map APIs` allow developers to build their in-app maps in many different ways depending on specific context, for instance what information can users to obtain through maps, or how users can interact with the in-app maps. The sections above only introduced the basic yet most commonly used classes and strategies in building maps into applications. For more information, please refer to the [developers' documentation for Google Map APIs](https://developers.google.com/maps/documentation/android-sdk/intro).
 <br> <br/>
 
-###   `Maps - Google Maps Android API`
+###  `Location and GPS`
+
+
