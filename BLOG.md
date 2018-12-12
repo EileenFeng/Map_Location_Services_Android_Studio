@@ -200,6 +200,6 @@ Below is the screenshot after the camera has zoomed in to the Tokyo area.
  <img src="/image/tokyo.png" width="250" height="450" >
 </p>
 
-The `moveCamera(CameraUpdate <location/marker>)` function will moves the camera to the positions specified by the marker passed in, and the `animateCamera(CameraUpdate <new_position>)` function will animate the process of moving the camera from the current position to the `new_position` that got passed in. There are many other ways of customizing your own views by manipulating with `CameraUpdate` differently, and this [`tutorial`](https://developers.google.com/maps/documentation/android-sdk/views) provided more details in how to create different views by manipulating your `CameraUpdate` differently. 
+The `moveCamera(CameraUpdate <location/marker>)` function will moves the camera to the positions specified by the marker passed in, and the `animateCamera(CameraUpdate <new_position>)` function will animate the process of moving the camera from the current position to the `new_position` that got passed in. There are many other ways of customizing your own views by manipulating with `CameraUpdate` differently, and this [`documentation`](https://developers.google.com/maps/documentation/android-sdk/views) provided more details in how to create different views by manipulating your `CameraUpdate` differently. 
 
 - `UiSettings`
