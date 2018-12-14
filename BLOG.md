@@ -225,4 +225,14 @@ The `Google Map APIs` allow developers to build their in-app maps in many differ
 
 ###  `Location and GPS`
 
+Android apps can access location services through classes in the `android.location` package. The most significant class in the location API is the [`LocationManager`](https://developer.android.com/reference/android/location/LocationManager) class, which allows developers to access and update user location easily. 
 
+Accessing user's location can be challenging for the following reasons. First of all, there are multiple resources for obtaining user locaiton, which includes GPS, CELL-ID, and Wi-Fi. When more than one resources are available, it is hard yet siginicant to determine which resource is more reliable. Secondly, it is challenging to choose the most accurate location provided, as sometimes the newly updated location might be less accurate than the old ones. Thirdly, accessing and updating locations with GPS or network consumes significant amount of batteries, and proper strategies need to be used to perserve as much battery as possible for users. 
+
+- #### `Preserve Battery`
+
+Depends on the specific applications that require location services, developers use different strategies for preserving battery for users. Generally, it is important to shorten the time duration of listening location updates. One useful and common strategy is to start listening for location update only when user starts activities that requires location information, and stop listening as soon as user stops the corresponding activity. The diagram below illustrates this procedure: 
+
+<p align="center">
+ <img src="/image/location_listener.png" width="250" height="450" >
+</p>
