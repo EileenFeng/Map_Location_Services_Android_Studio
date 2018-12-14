@@ -223,7 +223,7 @@ The `moveCamera(CameraUpdate <location/marker>)` function will moves the camera 
 The `Google Map APIs` allow developers to build their in-app maps in many different ways depending on specific context, for instance what information can users to obtain through maps, or how users can interact with the in-app maps. The sections above only introduced the basic yet most commonly used classes and strategies in building maps into applications. For more information, please refer to the [developers' documentation for Google Map APIs](https://developers.google.com/maps/documentation/android-sdk/intro).
 <br> <br/>
 
-###  `Location and GPS`
+###  `Location Services on Android`
 
 Android apps can access location services through classes in the `android.location` package. The most significant class in the location API is the [`LocationManager`](https://developer.android.com/reference/android/location/LocationManager) class, which allows developers to access and update user location easily. 
 
@@ -234,5 +234,134 @@ Accessing user's location can be challenging for the following reasons. First of
 Depends on the specific applications that require location services, developers use different strategies for preserving battery for users. Generally, it is important to shorten the time duration of listening location updates. One useful and common strategy is to start listening for location update only when user starts activities that requires location information, and stop listening as soon as user stops the corresponding activity. The diagram below illustrates this procedure: 
 
 <p align="center">
- <img src="/image/location_listener.png" width="250" height="450" >
+ <img src="/image/location_listener.png" width="700" height="200" >
 </p>
+
+- #### `User Permission for Location Service`
+
+As other system services, android applications must ask for user's permission for accessing location data. Below are the manifest for asking user permissions: 
+
+```xml
+ <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+ <!-- If using Android 5.0 or higher, please also add the code below -->
+ <uses-feature android:name="android.hardware.location.gps" />
+```
+
+- #### `Obtain and Update User Location`
+
+As with other system services, we cannot create a `LocationManager`, rather, we have to request on by calling [`getSystemService(Context.LOCATION_SERVICE)`](https://developer.android.com/reference/android/content/Context#getSystemService(java.lang.String)). Then we need to create a `LocationListener` and specifies the actions we want to perform when user locations changes. Finally we will set up the `LocationListerner` to start listening by calling [`requestLocationUpdates()`](https://developer.android.com/reference/android/location/LocationManager.html#requestLocationUpdates(long,%20float,%20android.location.Criteria,%20android.app.PendingIntent)). We can customize our providers in `requestLocationUpdates()` as `GPS_PROVIDER`, `NETWORK_PROVIDER`, or both. Below is a code example for obtaining `LocationManager`, set up listeners, and remove listener (that is, stop listening user location changes). 
+
+```java
+public class MapsActivity extends FragmentActivity implements ... {
+
+    protected LocationManager locManager;
+    protected LocationListener locListener;
+    protected Location cur_best_location;
+    protected long MUST_UPDATE_TIME = 1000 * 60;
+    protected int ACCURACY_RANGE = 100;
+    protected long MIN_TIME = 60 * 1000;
+    protected float MIN_DISTANCE = 10;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_maps);
+        cur_best_location = null;
+        // obtain `LocationManager`
+        locManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        // create a `LocationListener`
+        locListener = new LocationListener() {
+            @Override
+            public void onLocationChanged( {
+                if (locManager != null) {
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                            ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(getApplicationContext(), "Please allow access to location services for running this app,", Toast.LENGTH_LONG*2).show();
+                        return;
+                    }
+                    Location lastLoc = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    Toast.makeText(getApplicationContext(),
+                            "Latitude " + lastLoc.getLatitude() + " Longtitude: " + lastLoc.getLongitude(),
+                            Toast.LENGTH_LONG*2).show();
+                    updateBestLocation(location);
+                }
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {}
+
+            @Override
+            public void onProviderEnabled(String s) {}
+
+            @Override
+            public void onProviderDisabled(String s) {}
+        };
+  
+        // check that if user granted location permission, start listening 
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(), "Please allow access to location services for running this app,", Toast.LENGTH_LONG*2).show();
+            return;
+        } else {
+            /*
+                //If prefer GPS as provider:
+                locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, locListener);
+                // If prefer both GPS and NETWORK provider, call `requestLocationUpdates` twice on both:
+                locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, locListener);
+                locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, locListener);
+             */
+            locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, locListener);
+        }
+    }
+ 
+    // update `cur_best_location` if necessary
+    public void updateBestLocation(Location newLoc) {
+        if(cur_best_location == null) {
+            newLoc = cur_best_location;
+            return;
+        }
+        if(newLoc.getTime() - cur_best_location.getTime() >= MUST_UPDATE_TIME) {
+            cur_best_location = newLoc;
+            return;
+        }
+        if(newLoc.getProvider() != null &&
+                cur_best_location.getProvider() != null &&
+                (newLoc.getProvider().equals(cur_best_location.getProvider()))) {
+            if(newLoc.getAccuracy() - cur_best_location.getAccuracy() < 0) {
+                cur_best_location = newLoc;
+                return;
+            }
+        }
+        int accuracy_diff = (int)(newLoc.getAccuracy() - cur_best_location.getAccuracy());
+        if(accuracy_diff < 0) {
+            cur_best_location = newLoc;
+        } else if (accuracy_diff < ACCURACY_RANGE) {
+            cur_best_location = newLoc;
+        }
+        return;
+    }
+    
+    
+    @Override
+    public void onStop() {
+        super.onStop();
+        // stops listening location changes when activity stops
+        if(locManager != null && locListener != null) {
+            locManager.removeUpdates(locListener);
+        }
+    }
+}
+
+```
+
+One thing that worth pointing out in the example above is that, after we obtained our `LocationManager` and created the `LocationListener`, it is important to check if user has granted access to location services before we start listening. Specifically, we should check user permissions before we perform any actions that relates to location services. 
+
+As requesting location update consumes significant amount of battery, it is a common practice for developers to store the current best location and request location updates based on certain time or distance intervals. As shown in the example above, the `MIN_TIME` and `MIN_DISTANCE` arguments passed into the `requestLocationUpdates()` function specifies the time and distance between each updates. Whenever there is a location update, as set up in the `onLocationChanged()` function of our `LocationListener`, we will call the `public void updateBestLocation(Location newLoc)` function to update the current best locations if necessary. 
+
+There are many ways to decide whether the newly updated location will be chosed over the current best location stored. In the `void updateBestLocation(Location newLoc)` function, we use three factors to determine whether we update our `cur_best_location` or not: time difference between the current best location and the new location, accuracy difference, and resource provider of the new locations. Specifically, we will update our current best location if it has not been updated for a given amount of time (specified by `MUST_UPDATE_TIME`), or the new location is more accurate. In addition, as the provider of our current best location is considered as reliable, if the new location is from the same provider as our `cur_best_location`, and is not significantly less accurate, then we update our best location as well. 
+
+
+- #### `Android Framework API and Google Play services location APIs`
+
+The location service API introduced above is from the `android.location` packages. Currently there is a more powerful and efficient API provided for location services on Android app, which is the **Google Play services location APIs**. **Google Play services location APIs** is similar to the android framework API, however provides automatic location tracking and improves battery usage. For the purpose of introducing concepts, ideologies, and common practices in building apps with location services, the android framework API for location services is chosen as it is more logically clear and straightforward. For future referrences, the android developers' guide has provided a detailed and helpful description over the [`Google Play services location APIs`](https://developer.android.com/training/location/). 
+
